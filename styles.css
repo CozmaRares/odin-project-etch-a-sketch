@@ -13,10 +13,14 @@
   border: 1px black solid;
   display: grid;
   grid-template-columns: repeat(var(--grid-size), 1fr);
+  user-select: none;
 }
 
 .pixel {
   width: calc(512px / var(--grid-size));
   height: calc(512px / var(--grid-size));
-  border: 1px black solid;
+}
+
+.pixel.colored {
+  background-color: var(--color);
 }

@@ -1,0 +1,22 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+#canvas {
+  --grid-size: 16;
+  width: 512px;
+  height: 512px;
+  border: 1px black solid;
+  display: grid;
+  grid-template-columns: repeat(var(--grid-size), 1fr);
+}
+
+.pixel {
+  width: calc(512px / var(--grid-size));
+  height: calc(512px / var(--grid-size));
+  border: 1px black solid;
+}

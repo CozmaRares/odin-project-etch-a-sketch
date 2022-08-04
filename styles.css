@@ -6,21 +6,51 @@
   padding: 0;
 }
 
+#color-palette {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  box-shadow: 0 0 2px 2px black;
+  gap: 5px;
+  width: fit-content;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.color {
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.color.eraser,
+.color.picker {
+  padding: 15%;
+}
+
+.color.picker {
+  position: relative;
+}
+
+
+.color:hover {
+  outline: 1px solid black;
+}
+
 #canvas {
   --grid-size: 16;
-  width: 512px;
-  height: 512px;
-  border: 1px black solid;
+
+  width: 600px;
+  height: 600px;
   display: grid;
   grid-template-columns: repeat(var(--grid-size), 1fr);
+  grid-template-rows: repeat(var(--grid-size), 1fr);
+  box-shadow: 0 0 2px 2px rgb(132, 61, 61);
   user-select: none;
 }
 
 .pixel {
-  width: calc(512px / var(--grid-size));
-  height: calc(512px / var(--grid-size));
-}
-
-.pixel.colored {
-  background-color: var(--color);
+  background-color: transparent;
+  transition: background-color 100ms ease-in-out;
 }

@@ -1,15 +1,14 @@
+const canvasElement = document.getElementById("canvas");
+
+let currentColor = "black";
+
 let mouseClicked = false;
 
 document.addEventListener("mousedown", () => (mouseClicked = true));
 document.addEventListener("mouseup", () => (mouseClicked = false));
 
-const canvasElement = document.getElementById("canvas");
-
 function onMouseOver(e) {
-  if (!mouseClicked) return;
-
-  e.target.style.setProperty("--color", "black");
-  e.target.classList.add("colored");
+  mouseClicked && (e.target.style.backgroundColor = currentColor);
 }
 
 function createCanvas(gridSize) {
@@ -31,3 +30,35 @@ function createCanvas(gridSize) {
 }
 
 createCanvas(16);
+
+function setColor(e) {
+  currentColor = e.style.backgroundColor;
+}
+
+function setEraser() {
+  currentColor = "transparent";
+}
+
+(() => {
+  const colors = [
+    "black",
+    "gray",
+    "wheat",
+    "white",
+    "#f02c03",
+    "#ff950c",
+    "#fedc03",
+    "#7cda01",
+    "#0d8dff",
+    "#b02ff7"
+  ];
+
+  const colorElements = [...document.getElementById("color-palette").children];
+
+  if (colorElements.length - colors.length < 2)
+    throw new Error("Invalid color palette");
+
+  colors.forEach(
+    (color, idx) => (colorElements[idx].style.backgroundColor = color)
+  );
+})();

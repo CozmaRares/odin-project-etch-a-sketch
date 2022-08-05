@@ -8,19 +8,28 @@
 
 body {
   background-color: #e5e5e5;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-.controls {
-  width: fit-content;
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
 }
 
 #color-palette {
+  margin-right: 1rem;
+  padding: 1rem;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  box-shadow: 0 0 2px 2px black;
+  grid-template-columns: 1fr;
   gap: 5px;
-  width: fit-content;
-  padding: 10px;
+  box-shadow: 0 0 2px 2px black;
   border-radius: 20px;
 }
 
@@ -41,16 +50,59 @@ body {
   outline: 1px solid black;
 }
 
-#canvas {
-  --grid-size: 16;
+.color.eraser {
+  position: relative;
+}
 
-  width: 500px;
-  height: 500px;
+.color.eraser p {
+  position: absolute;
+  top: calc(100% + 0.2rem);
+  left: -50%;
+  white-space: nowrap;
+  background-color: #e5e5e5;
+  border: 1px solid black;
+  z-index: 1;
+  padding: 0.5rem;
+  border-radius: 10px;
+  display: none;
+}
+
+.color.eraser:hover p {
+  display: block;
+}
+
+.slider-wrapper {
+  width: 200px;
+  margin: 0 auto;
+}
+
+input[type="range"] {
+  outline: 1px solid lime !important;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 2rem;
+}
+
+#canvas {
+  width: 600px;
+  height: 600px;
   display: grid;
   grid-template-columns: repeat(var(--grid-size), 1fr);
   grid-template-rows: repeat(var(--grid-size), 1fr);
   box-shadow: 0 0 2px 2px black;
   user-select: none;
+  position: relative;
+}
+
+#canvas-size {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 1rem;
 }
 
 .pixel {

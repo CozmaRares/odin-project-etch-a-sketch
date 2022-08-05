@@ -1,10 +1,10 @@
 const canvasElement = document.getElementById("canvas");
 const canvasSizeElement = document.getElementById("canvas-size");
 const sliderElement = document.getElementById("slider");
-const colorElements = [...document.getElementById("color-palette").children];
 
 let mouseClicked = false;
-let currentColor;
+let previousColor, currentColor;
+let previousColorElement, currentColorElement;
 
 document.addEventListener("mousedown", () => (mouseClicked = true));
 document.addEventListener("mouseup", () => (mouseClicked = false));
@@ -31,6 +31,8 @@ function createCanvas(gridSize) {
 
   canvasElement.innerHTML = "";
 
+  canvasElement.appendChild(canvasSizeElement);
+
   canvasElement.style.setProperty("--grid-size", gridSize);
 
   for (let i = gridSize * gridSize; i > 0; i--) {
@@ -43,31 +45,51 @@ function createCanvas(gridSize) {
 }
 
 function setActive(element) {
-  colorElements.forEach((e) => e.classList.remove("active"));
+  currentColorElement.classList.remove("active");
   element.classList.add("active");
+  previousColorElement = currentColorElement;
+  currentColorElement = element;
 }
 
 function setColor(element) {
   setActive(element);
 
+  previousColor = currentColor;
   currentColor = element.style.backgroundColor;
 }
 
 function setRainbow(element) {
   setActive(element);
 
+  previousColor = currentColor;
   currentColor = "rainbow";
 }
 
 function setEraser(element) {
+  if (currentColor === "transparent") {
+    currentColor = previousColor;
+    setActive(previousColorElement);
+
+    createCanvas(sliderElement.value);
+
+    return;
+  }
+
   setActive(element);
 
+  previousColor = currentColor;
   currentColor = "transparent";
 }
 
-function updateCanvasSize(size) {
-  canvasSizeElement.innerText = size + "x" + size;
-}
+sliderElement.onchange = (event) => {
+  canvasSizeElement.style.display = "none";
+  createCanvas(event.target.value);
+};
+
+sliderElement.oninput = (event) => {
+  canvasSizeElement.style.display = "block";
+  canvasSizeElement.innerText = event.target.value + "x" + event.target.value;
+};
 
 {
   // color palette setup
@@ -83,7 +105,10 @@ function updateCanvasSize(size) {
     "#b02ff7"
   ];
 
+  const colorElements = [...document.getElementById("color-palette").children];
+
   currentColor = colors[0];
+  currentColorElement = colorElements[0];
 
   if (colorElements.length - colors.length < 3)
     throw new Error("Invalid color palette");

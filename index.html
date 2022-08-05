@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Etch a sketch</title>
     <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./slider.css" />
     <script src="./script.js" defer></script>
     <link
       rel="stylesheet"
@@ -15,34 +16,98 @@
     />
   </head>
   <body>
-    <div id="color-palette">
-      <div class="color" onclick="setColor(this)"></div>
-      <div class="color" onclick="setColor(this)"></div>
-      <div class="color" onclick="setColor(this)"></div>
-      <div class="color" onclick="setColor(this)"></div>
-      <div class="color" onclick="setColor(this)"></div>
-      <div class="color" onclick="setColor(this)"></div>
-      <div class="color" onclick="setColor(this)"></div>
-      <div class="color" onclick="setColor(this)"></div>
-      <div class="color" onclick="setColor(this)"></div>
-      <div class="color" onclick="setColor(this)"></div>
-      <div class="color eraser" onclick="setEraser()">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-          <!--! Font Awesome Pro 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-          <path
-            d="M480 416C497.7 416 512 430.3 512 448C512 465.7 497.7 480 480 480H150.6C133.7 480 117.4 473.3 105.4 461.3L25.37 381.3C.3786 356.3 .3786 315.7 25.37 290.7L258.7 57.37C283.7 32.38 324.3 32.38 349.3 57.37L486.6 194.7C511.6 219.7 511.6 260.3 486.6 285.3L355.9 416H480zM265.4 416L332.7 348.7L195.3 211.3L70.63 336L150.6 416L265.4 416z"
-          />
-        </svg>
+    <div class="controls">
+      <div id="color-palette">
+        <div class="color active" onclick="setColor(this)"></div>
+        <div class="color" onclick="setColor(this)"></div>
+        <div class="color" onclick="setColor(this)"></div>
+        <div class="color" onclick="setColor(this)"></div>
+        <div class="color" onclick="setColor(this)"></div>
+        <div class="color" onclick="setColor(this)"></div>
+        <div class="color" onclick="setColor(this)"></div>
+        <div class="color" onclick="setColor(this)"></div>
+        <div class="color" onclick="setColor(this)"></div>
+        <div class="color svg" onclick="setRainbow(this)">
+          <?xml version="1.0" encoding="iso-8859-1"?>
+          <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <svg
+            version="1.1"
+            id="Capa_1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            x="0px"
+            y="0px"
+            viewBox="0 0 60 60"
+            style="enable-background: new 0 0 60 60"
+            xml:space="preserve"
+          >
+            <path
+              style="fill: #f02c03"
+              d="M4.645,45.577c-0.017-0.383-0.029-0.767-0.029-1.154c0-13.997,11.387-25.385,25.385-25.385
+            s25.385,11.387,25.385,25.385c0,0.387-0.012,0.771-0.029,1.154h4.616C59.985,45.193,60,44.81,60,44.423c0-16.569-13.431-30-30-30
+            s-30,13.431-30,30c0,0.387,0.015,0.77,0.029,1.154H4.645z"
+            />
+            <path
+              style="fill: #fedc03"
+              d="M9.289,45.577c-0.021-0.384-0.058-0.764-0.058-1.154c0-11.452,9.317-20.769,20.769-20.769
+            s20.769,9.318,20.769,20.769c0,0.389-0.037,0.77-0.058,1.154h4.645c0.017-0.383,0.029-0.767,0.029-1.154
+            c0-13.997-11.387-25.385-25.385-25.385S4.615,30.426,4.615,44.423c0,0.387,0.012,0.771,0.029,1.154H9.289z"
+            />
+            <path
+              style="fill: #7cda01"
+              d="M13.905,45.577c-0.027-0.383-0.058-0.764-0.058-1.154c0-8.907,7.246-16.154,16.154-16.154
+            s16.154,7.246,16.154,16.154c0,0.389-0.031,0.771-0.058,1.154h4.615c0.021-0.384,0.058-0.764,0.058-1.154
+            c0-11.452-9.317-20.769-20.769-20.769S9.231,32.971,9.231,44.423c0,0.389,0.037,0.77,0.058,1.154H13.905z"
+            />
+            <path
+              style="fill: #0d8dff"
+              d="M18.52,45.577c-0.038-0.38-0.058-0.764-0.058-1.154c0-6.362,5.176-11.538,11.538-11.538
+            s11.538,5.177,11.538,11.538c0,0.389-0.021,0.774-0.058,1.154h4.615c0.027-0.383,0.058-0.764,0.058-1.154
+            c0-8.907-7.246-16.154-16.154-16.154s-16.154,7.246-16.154,16.154c0,0.389,0.031,0.771,0.058,1.154H18.52z"
+            />
+            <path
+              style="fill: #b02ff7"
+              d="M23.181,45.577c-0.064-0.376-0.104-0.76-0.104-1.154c0-3.818,3.105-6.923,6.923-6.923
+            s6.923,3.105,6.923,6.923c0,0.394-0.041,0.778-0.104,1.154h4.661c0.038-0.38,0.058-0.764,0.058-1.154
+            c0-6.362-5.176-11.538-11.538-11.538s-11.538,5.177-11.538,11.538c0,0.389,0.021,0.774,0.058,1.154H23.181z"
+            />
+          </svg>
+        </div>
+        <div class="color svg" onclick="setEraser(this)">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <!--! Font Awesome Pro 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+            <path
+              d="M480 416C497.7 416 512 430.3 512 448C512 465.7 497.7 480 480 480H150.6C133.7 480 117.4 473.3 105.4 461.3L25.37 381.3C.3786 356.3 .3786 315.7 25.37 290.7L258.7 57.37C283.7 32.38 324.3 32.38 349.3 57.37L486.6 194.7C511.6 219.7 511.6 260.3 486.6 285.3L355.9 416H480zM265.4 416L332.7 348.7L195.3 211.3L70.63 336L150.6 416L265.4 416z"
+            />
+          </svg>
+        </div>
+        <div
+          class="color svg"
+          style="position: relative"
+          onclick="openColorPicker()"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <!--! Font Awesome Pro 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+            <path
+              d="M482.8 29.23C521.7 68.21 521.7 131.4 482.8 170.4L381.2 271.9L390.6 281.4C403.1 293.9 403.1 314.1 390.6 326.6C378.1 339.1 357.9 339.1 345.4 326.6L185.4 166.6C172.9 154.1 172.9 133.9 185.4 121.4C197.9 108.9 218.1 108.9 230.6 121.4L240.1 130.8L341.6 29.23C380.6-9.744 443.8-9.744 482.8 29.23L482.8 29.23zM55.43 323.3L176.1 202.6L221.4 247.9L100.7 368.6C97.69 371.6 96 375.6 96 379.9V416H132.1C136.4 416 140.4 414.3 143.4 411.3L264.1 290.6L309.4 335.9L188.7 456.6C173.7 471.6 153.3 480 132.1 480H89.69L49.75 506.6C37.06 515.1 20.16 513.4 9.373 502.6C-1.413 491.8-3.086 474.9 5.375 462.2L32 422.3V379.9C32 358.7 40.43 338.3 55.43 323.3L55.43 323.3z"
+            />
+          </svg>
+        </div>
       </div>
-      <div class="color picker" onclick="openColorPicker()">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-          <!--! Font Awesome Pro 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-          <path
-            d="M482.8 29.23C521.7 68.21 521.7 131.4 482.8 170.4L381.2 271.9L390.6 281.4C403.1 293.9 403.1 314.1 390.6 326.6C378.1 339.1 357.9 339.1 345.4 326.6L185.4 166.6C172.9 154.1 172.9 133.9 185.4 121.4C197.9 108.9 218.1 108.9 230.6 121.4L240.1 130.8L341.6 29.23C380.6-9.744 443.8-9.744 482.8 29.23L482.8 29.23zM55.43 323.3L176.1 202.6L221.4 247.9L100.7 368.6C97.69 371.6 96 375.6 96 379.9V416H132.1C136.4 416 140.4 414.3 143.4 411.3L264.1 290.6L309.4 335.9L188.7 456.6C173.7 471.6 153.3 480 132.1 480H89.69L49.75 506.6C37.06 515.1 20.16 513.4 9.373 502.6C-1.413 491.8-3.086 474.9 5.375 462.2L32 422.3V379.9C32 358.7 40.43 338.3 55.43 323.3L55.43 323.3z"
-          />
-        </svg>
-      </div>
+
+      <input
+        type="range"
+        id="slider"
+        min="10"
+        max="100"
+        value="16"
+        step="1"
+        onchange="createCanvas(this.value)"
+        oninput="updateCanvasSize(this.value)"
+      />
+      <div id="canvas-size">16x16</div>
     </div>
+
     <div id="canvas"></div>
     <footer>
       <a

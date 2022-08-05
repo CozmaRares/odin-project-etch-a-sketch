@@ -1,17 +1,30 @@
 const canvasElement = document.getElementById("canvas");
-
-let currentColor = "black";
+const canvasSizeElement = document.getElementById("canvas-size");
+const sliderElement = document.getElementById("slider");
+const colorElements = [...document.getElementById("color-palette").children];
 
 let mouseClicked = false;
+let currentColor;
 
 document.addEventListener("mousedown", () => (mouseClicked = true));
 document.addEventListener("mouseup", () => (mouseClicked = false));
 
+function colorCell(cell) {
+  if (currentColor !== "rainbow")
+    return (cell.style.backgroundColor = currentColor);
+
+  cell.style.backgroundColor = `rgb(${Math.random() * 255},${
+    Math.random() * 255
+  },${Math.random() * 255})`;
+}
+
 function onMouseOver(e) {
-  mouseClicked && (e.target.style.backgroundColor = currentColor);
+  mouseClicked && colorCell(e.target);
 }
 
 function createCanvas(gridSize) {
+  gridSize = parseInt(gridSize);
+
   [...canvasElement.children].forEach((div) =>
     div.removeEventListener("mouseover", onMouseOver)
   );
@@ -29,21 +42,38 @@ function createCanvas(gridSize) {
   }
 }
 
-createCanvas(16);
-
-function setColor(e) {
-  currentColor = e.style.backgroundColor;
+function setActive(element) {
+  colorElements.forEach((e) => e.classList.remove("active"));
+  element.classList.add("active");
 }
 
-function setEraser() {
+function setColor(element) {
+  setActive(element);
+
+  currentColor = element.style.backgroundColor;
+}
+
+function setRainbow(element) {
+  setActive(element);
+
+  currentColor = "rainbow";
+}
+
+function setEraser(element) {
+  setActive(element);
+
   currentColor = "transparent";
 }
 
-(() => {
+function updateCanvasSize(size) {
+  canvasSizeElement.innerText = size + "x" + size;
+}
+
+{
+  // color palette setup
   const colors = [
     "black",
     "gray",
-    "wheat",
     "white",
     "#f02c03",
     "#ff950c",
@@ -53,12 +83,14 @@ function setEraser() {
     "#b02ff7"
   ];
 
-  const colorElements = [...document.getElementById("color-palette").children];
+  currentColor = colors[0];
 
-  if (colorElements.length - colors.length < 2)
+  if (colorElements.length - colors.length < 3)
     throw new Error("Invalid color palette");
 
   colors.forEach(
     (color, idx) => (colorElements[idx].style.backgroundColor = color)
   );
-})();
+}
+
+createCanvas(sliderElement.value);

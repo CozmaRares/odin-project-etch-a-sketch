@@ -1,6 +1,7 @@
 const canvasElement = document.getElementById("canvas");
 const canvasSizeElement = document.getElementById("canvas-size");
 const sliderElement = document.getElementById("slider");
+const themeThumbElement = document.getElementById("theme-thumb");
 
 let mouseClicked = false;
 let previousColor, currentColor;
@@ -90,6 +91,13 @@ sliderElement.oninput = (event) => {
   canvasSizeElement.style.display = "block";
   canvasSizeElement.innerText = event.target.value + "x" + event.target.value;
 };
+
+function toggleTheme() {
+  document.body.classList.toggle("light");
+  document.body.classList.toggle("dark");
+  themeThumbElement.classList.toggle("left");
+  themeThumbElement.classList.toggle("right");
+}
 
 {
   // color palette setup

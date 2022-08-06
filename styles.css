@@ -21,10 +21,11 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: row;
+  gap: 1.5rem;
 }
 
 #color-palette {
-  margin-right: 1rem;
+  z-index: 1;
   padding: 1rem;
   display: grid;
   grid-template-columns: 1fr;
@@ -43,6 +44,14 @@ body {
 
 .color.svg {
   padding: 15%;
+}
+
+.color.svg svg {
+  transition: transform 200ms ease-in-out;
+}
+
+.color.svg:hover svg {
+  transform: rotate(360deg);
 }
 
 .color.active,
@@ -77,7 +86,6 @@ body {
 }
 
 input[type="range"] {
-  outline: 1px solid lime !important;
   width: 100%;
   margin: 0 auto;
   margin-top: 2rem;
@@ -103,6 +111,7 @@ input[type="range"] {
   border: 1px solid black;
   border-radius: 10px;
   padding: 1rem;
+  background-color: #e5e5e5;
 }
 
 .pixel {

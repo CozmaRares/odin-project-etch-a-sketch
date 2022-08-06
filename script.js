@@ -110,7 +110,7 @@ sliderElement.oninput = (event) => {
   currentColor = colors[0];
   currentColorElement = colorElements[0];
 
-  if (colorElements.length - colors.length < 3)
+  if (colorElements.length - colors.length < 2)
     throw new Error("Invalid color palette");
 
   colors.forEach(
